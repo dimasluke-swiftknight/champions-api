@@ -1,0 +1,10 @@
+*/node_modules
+.env
+node_modules
+*.sublime-workspace
+.eslintrc.js
+.vscode
+*/logs
+logs
+
+zzz/
