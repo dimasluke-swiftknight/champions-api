@@ -7,7 +7,7 @@ ChampionsController
     .get('/champions', async (req, res, next) => {
         const ChampionsService = new Services.ChampionsService(Champion, Services.ChampionsValidation);
 
-        const result = await ChampionsService.getChampions(req.query);
+        const result = await ChampionsService.getChampions(req.query, req.headers);
 
         res.status(200).send(result);
     })
