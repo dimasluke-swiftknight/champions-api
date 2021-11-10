@@ -9,30 +9,33 @@ const app = express();
 
 app.use(express.json());
 
+app.use(morgan('combined'));
+
 const controllers = require('./api/controllers/index.js');
 
 app.use('/', controllers.ChampionsController);
 
-app.use(morgan('combined', { stream: logger.stream }));
-
 app.use(function(err, req, res, next) {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-  
-    // add this line to include winston logging
-    logger.error(`${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
-  
+    const message = `${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`;
+
+    logger.error({
+        message: message,
+        correlationId: req.headers['x-knight-correlation-id'],
+    });
+    
     // render the error page
     res.status(err.status || 500);
-    res.render('error');
+    res.send({
+        status: 'Error',
+        message: message
+    })
   });
 
 let server;
 
 const port = process.env.PORT || 3000;
 
-const databaseUrl = 'mongodb://127.0.0.1:27017';
+const databaseUrl = 'mongodb://host.docker.internal:27017';
 
 const connectDatabase = async (dbUrl) => {
     try {
