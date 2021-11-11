@@ -9,7 +9,7 @@ class ChampionsService {
     async getChampions(queryParams, headers) {
         logger.info({
             message: 'start-get-champions ' + JSON.stringify(queryParams),
-            correaltionId: headers['x-knight-correlation-id'],
+            correlationId: headers['x-knight-correlation-id'],
             tracePoint: 'START'
         });
 
@@ -30,7 +30,7 @@ class ChampionsService {
 
 		logger.info({
             message: 'build-find-params ' + JSON.stringify(params),
-            correaltionId: headers['x-knight-correlation-id'],
+            correlationId: headers['x-knight-correlation-id'],
             tracePoint: 'AFTER_FUNCTION'
         });
 
@@ -43,7 +43,7 @@ class ChampionsService {
 
 		logger.info({
             message: 'end-get-champions ' + JSON.stringify(queryParams),
-            correaltionId: headers['x-knight-correlation-id'],
+            correlationId: headers['x-knight-correlation-id'],
             tracePoint: 'END'
         });
 	

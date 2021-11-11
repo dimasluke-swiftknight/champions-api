@@ -9,9 +9,10 @@ const app = express();
 
 app.use(express.json());
 
-app.use(morgan('combined'));
+app.use(morgan('combined', { stream: logger.stream }));
 
 const controllers = require('./api/controllers/index.js');
+
 
 app.use('/', controllers.ChampionsController);
 
@@ -35,7 +36,8 @@ let server;
 
 const port = process.env.PORT || 3000;
 
-const databaseUrl = 'mongodb://host.docker.internal:27017';
+// const databaseUrl = 'mongodb://host.docker.internal:27017';
+const databaseUrl = 'mongodb://127.0.0.1:27017';
 
 const connectDatabase = async (dbUrl) => {
     try {
